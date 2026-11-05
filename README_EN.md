@@ -9,10 +9,7 @@
 
 **Language**：[English](README_EN.md) | [简体中文](README.md)
 
-This repository is a collection of two physiognomy skills:
-
-- **`human-physiognomy`**: for humans — image analysis based on traditional Chinese physiognomy, covering facial reading (Mianxiang), palmistry (Shouxiang), bone reading (Guxiang), and body physiognomy (Tixiang)
-- **`cat-physiognomy`**: for cats — upload cat photos, generate a torn-paper poster blending classical cat-lore, modern knowledge and playful imagination
+This repository focuses on human physiognomy through the `tenpai-kanxiang` skill, covering face, palm, bone, and body reading based on traditional Chinese physiognomy.
 
 ⚠️ **This analysis is for cultural reference and entertainment only. Modern science has not reached a consensus on the predictive ability of physiognomy.**
 
@@ -22,39 +19,27 @@ This repository is a collection of two physiognomy skills:
 
 ## Installation
 
-Install with the [skills CLI](https://skills.sh) (`npx skills`). The two skills in this repository can be installed together or individually:
+Install the human physiognomy skill with the [skills CLI](https://skills.sh) (`npx skills`):
 
 ```bash
-# Install to current project (auto-detects installed agents; omit --skill to pick interactively)
-npx skills add timerzz/kanxiang
-
-# Install only the cat skill, globally
-npx skills add timerzz/kanxiang --skill cat-physiognomy -g
+# Install the repository skill to the current project
+npx skills add tenpai-ai/kanxiang
 
 # Target a specific agent
-npx skills add timerzz/kanxiang --skill human-physiognomy -a opencode
+npx skills add tenpai-ai/kanxiang --skill tenpai-kanxiang -a opencode
 ```
 
 Notes:
 - At the install prompt choose **Symlink** so skills stay in sync with the repo, or **Copy** for independent copies
 - The repo must be pushed to GitHub and public; before that, install from a local path instead: `npx skills add /path/to/kanxiang`
 - Management commands: `npx skills list` to view, `npx skills update` to update, `npx skills remove <skill-name>` to uninstall
+- If you installed the previous `human-physiognomy` name, run `npx skills remove human-physiognomy` in the same scope, then install `tenpai-kanxiang`
 
 ### Skills in This Repository
 
 | Skill | Purpose | Input | Output |
 |-------|---------|-------|--------|
-| [`human-physiognomy`](skills/human-physiognomy/SKILL.md) | For humans: face, palm, bone and body reading per classic texts such as 《麻衣神相》 and 《冰鉴》 | Face / palm / bone / full-body photos | Markdown report (personality, fortune, advice) |
-| [`cat-physiognomy`](skills/cat-physiognomy/SKILL.md) | For cats: breed written straight on an anti-theft-tag label; fun readings from three sources — classical lore, modern knowledge, wild imagination | One or more cat photos | 3:4 aged-cream-paper torn poster (breed tag + part notes) |
-
-### Requirements
-- **Node.js 22.20+** (required by the skills CLI, [installation guide](https://nodejs.org))
-- **Claude Code** (when installing to Claude): free installation ([guide](https://docs.anthropic.com/en/docs/claude-code))
-- **Visual Analysis**: Requires a model with vision capabilities (e.g., Claude 4.6 Sonnet)
-- **API Usage**: Each analysis consumes approximately 2k-5k tokens, depending on photo complexity and analysis depth
-- **Payment Options** (choose one):
-  - Claude Pro / Max Subscription: Use within subscription quota, no additional setup needed
-  - Anthropic API Key: Pay-as-you-go, configure key in Claude Code
+| [`tenpai-kanxiang`](skills/tenpai-kanxiang/SKILL.md) | Human readings: confirm the photo and type first; face, palm, bone and body reading as requested, per classic texts such as 《麻衣神相》 and 《冰鉴》 | Face / palm / bone / full-body photos | Conversational reading in the “老夫” voice; annotated original when the image tool supports it |
 
 ---
 
@@ -62,27 +47,22 @@ Notes:
 
 ### Basic Usage
 
-1. **Upload a photo and specify analysis type**:
+1. **Upload a photo and specify the type**:
    ```
-   Help me analyze this face reading [upload photo]
-   ```
-
-2. **Or simply upload a photo directly**:
-   ```
-   [Upload photo]
-   The skill will automatically recognize the photo type and perform analysis
+   Read my face [upload face photo]
    ```
 
-3. **For your cat**: upload cat photo(s) and ask for a cat reading — this invokes `cat-physiognomy`, and the output is a poster:
-   ```
-   Give my cat a reading and make a poster [upload cat photo]
-   ```
+2. **Or upload a photo by itself**: when the photo clearly shows one type, the skill selects the matching rules automatically. If the type is unclear, multiple types are possible, or the photo conflicts with your request, it asks you to confirm first.
 
-### Supported Analysis Types (human-physiognomy)
+3. **If you have no photo**: the skill asks you to upload one. If you have not chosen a reading type, it lists face, palm, bone, and body reading, asks you to choose, and requests a matching photo.
+
+The skill confirms the photo and type before reading any rules. If the current environment has a tool that can annotate the original image, it produces a copy with callout lines; otherwise, it gives a conversational reading in the “老夫” voice and names its sources.
+
+### Supported Analysis Types (tenpai-kanxiang)
 
 | Type | Description | Photo Requirements |
 |------|-------------|-------------------|
-| **Face Reading** | Analyze features, three courts, twelve palaces, complexion | Front or side face photo |
+| **Face Reading** | Analyze features, three courts, twelve palaces, complexion | Front face photo preferred; a side profile only supports visible contours |
 | **Palmistry** | Analyze palm lines, finger shapes, mounts, coloration | Palm front photo |
 | **Bone Reading** | Analyze skull, body bones, nine bone structures | Photo showing bone contours |
 | **Body Physiognomy** | Analyze body type, posture, temperament | Full-body or half-body photo |
@@ -91,146 +71,52 @@ Notes:
 
 ## Examples
 
-### Example 1: Face Reading Analysis
+### Example 1: Photo present, type clear (face reading)
 
-> Input: `Help me analyze this face reading [upload face photo]`
+> Input: `Read my face [upload face photo]`
 
-**Scenario 1: Personality Analysis**
 ```
-User ❯ Help me analyze this face reading
+User ❯ Read my face
 [Upload face photo]
 
-Kanxiang Skill ❯ # Physiognomy Analysis Report
+Kanxiang Skill ❯ Let this old fellow take a look. In this photo the forehead looks fairly open, and the brow ridge is easy to see.
 
-## Basic Information
-- **Type**: Face Reading (Mianxiang)
-- **Analysis Date**: 2026-04-19
+In traditional face reading, the upper court is often discussed in terms of early foundations and thinking, while the brow ridge is often linked to temperament and decisiveness. I will stick to the features that are clearest in the photo and not overstate them. With those details out of the way, the overall impression is fairly steady and composed, and the gaze does not look especially sharp; in the old idiom, this suggests someone who acts with measure and does not rush in. The relevant rules are compiled from traditional face-reading material such as 《麻衣神相》.
 
-## Feature Recognition
-- Balanced three courts proportion, full and broad forehead
-- Thick and neat eyebrows, gentle eyes
-- Straight nose bridge, moderate nasal wings
-- Clear lip contours, naturally upturned mouth corners
-
-## Personality Traits
-- Dominant personality: Externally gentle, internally determined
-- Strengths: Steady and reliable, thoughtful, decisive
-- Weaknesses: Occasionally overly cautious, may miss opportunities
-
-## Ability Tendencies
-- Strengths: Management, planning, analytical work
-- Suitable careers: Corporate executives, project managers, analysts
+(When the current environment has a tool that can edit the original image, an annotated copy is attached here, with callout lines pointing to the forehead, brow ridge and other analysed areas. Each label has the area name on the first line and a brief visible description on the second, such as “Forehead / fairly open and full” or “Brow ridge / slightly prominent”. For an English question, the labels are in English too. Without such a tool, only the text reading is given, with a note that no annotated image could be produced.)
 ```
 
-**Scenario 2: Fortune Analysis**
-```
-User ❯ How is my recent fortune?
+### Example 2: No photo and no reading type
 
-Kanxiang Skill ❯ ## Fortune Analysis
-
-### Recent Fortune (Next 1-2 Years)
-- **Career**: ⭐⭐⭐⭐ Steady rise, helpful people
-- **Wealth**: ⭐⭐⭐ Stable regular income, average windfall luck
-- **Relationship**: ⭐⭐⭐⭐ Strong romantic luck, likely to find true love
-
-### Notes
-- Second half of this year (July-September): Pay attention to communication, avoid misunderstandings
-- Spring next year (March-May): Important career opportunities
-```
-
----
-
-### Example 2: Palmistry Analysis
-
-> Input: `Analyze my palmistry [upload palm photo]`
+> Input: `Read my physiognomy`
 
 ```
-User ❯ How is my palmistry?
+User ❯ Read my physiognomy
+
+Kanxiang Skill ❯ I can read the face, palm, bone structure, or body form. Which one would you like? Choose one and send a matching photo: a face, a palm, a photo showing bone contours, or a full-body or half-body shot.
+```
+
+### Example 3: Text and photo do not match
+
+> Input: `Read my body form [upload palm photo]`
+
+```
+User ❯ Read my body form
 [Upload palm photo]
 
-Kanxiang Skill ❯ # Physiognomy Analysis Report
-
-## Basic Information
-- **Type**: Palmistry (Shouxiang)
-- **Analysis Date**: 2026-04-19
-
-## Feature Recognition
-- **Life Line**: Deep, long, and clear, encircling the thumb base
-- **Head Line**: Extends straight to the palm side, forked at the end
-- **Heart Line**: Gracefully curved, ending between index and middle fingers
-- **Fate Line**: Extends upward from the wrist, slightly interrupted midway
-
-## Personality Traits
-- **Life Line characteristics**: Energetic, strong vitality, maintain health
-- **Head Line characteristics**: Strong logical thinking, rational and pragmatic, suitable for technical work
-- **Heart Line characteristics**: Emotionally rich but rational, seeking stable relationships
-- **Fate Line characteristics**: Life trajectory has ups and downs, stabilizes after middle age
-
-## Ability Tendencies
-- Strengths: Technology, engineering, logical analysis
-- Suitable careers: Engineer, programmer, researcher
+Kanxiang Skill ❯ Hmm, what I see here is a palm. Would you like to switch to palm reading, or keep the body reading and add a full-body or half-body photo?
 ```
 
----
+### Example 4: Photo is unclear
 
-### Example 3: Body Physiognomy Analysis
-
-> Input: `Help me analyze this photo [upload full-body photo]`
+> Input: `Take a look [upload blurry photo]`
 
 ```
-User ❯ Help me analyze this photo
-[Upload full-body photo]
+User ❯ Take a look
+[Upload blurry photo]
 
-Kanxiang Skill ❯ # Physiognomy Analysis Report
-
-## Basic Information
-- **Type**: Body Physiognomy (Tixiang)
-- **Analysis Date**: 2026-04-19
-
-## Feature Recognition
-- **Body Type**: Medium build, well-proportioned
-- **Posture**: Upright standing, level shoulders, straight back
-- **Temperament**: Calm and reserved, confident and composed
-
-## Personality Traits
-- **Main characteristic**: Strong self-discipline, focused on self-management
-- **Strengths**: Steady and reliable, responsible, trustworthy
-- **Weaknesses**: Slightly reserved, sometimes overly serious
-
-## Ability Tendencies
-- Strengths: Management, education, professional services
-- Suitable careers: Teacher, manager, consultant
-
-## Health Notes
-- Upright posture, good skeletal structure
-- Maintain moderate exercise, avoid prolonged sitting
-- Recommend flexibility training
+Kanxiang Skill ❯ This photo is too unclear for me to read properly. Were you after face, palm, bone, or body reading? If convenient, send a clearer matching photo and I will take a closer look.
 ```
-
----
-
-### Example 4: Cat Reading (cat-physiognomy)
-
-> Input: `Give my cat a reading and make a poster [upload cat photo]`
-
-The cat skill produces a poster rather than a text report (no title, no source or disclaimer line on the poster):
-
-```
-User ❯ Give my cat a physiognomy reading and make a poster
-[Upload cat photo]
-
-Cat Physiognomy Skill ❯ Generated a 3:4 aged-cream-paper torn poster:
-  Center = cat photo cutout (face shape, eye color, coat pattern and pose preserved)
-  Anti-theft tag = 银渐层 (silver shaded) — pierces the paper, clipped at the neck
-  Paper notes (illustrative):
-    金眸生辉 (golden eyes aglow)
-    eyes carry gold — rich and carefree from age one ——《相猫经》
-    爱蜷成团 (loves curling up)
-    睡相圆满，一生安稳少波折 (a full-circle sleep, a life of calm)
-    不是猫的话，大概有当宇航员的天赋 (free-floating fantasy note)
-```
-
-Note: the poster is playful entertainment. The breed is written straight on the anti-theft tag (which pierces the cat's paper) as a common Chinese market name — no pedigree or breed-certificate claim. Readings blend the [classical cat-lore notes](skills/cat-physiognomy/references/) with modern knowledge (incl. cat behavior research); ungrounded fantasy notes are allowed, while medical/health content, negative omens and "studies show" phrasing are not. Paper notes with a solid classical source may carry a small "——《相猫经》" suffix; the full source line stays in the chat reply only.
 
 ---
 
@@ -240,34 +126,32 @@ Note: the poster is playful entertainment. The breed is written straight on the 
 
 | Type | Analysis Dimensions | Source Materials |
 |------|-------------------|------------------|
-| **Face Reading** | Features, three courts, twelve palaces, complexion, bones | "Mayi Shenxiang", "Lizhuang Xiangfa", "Shenxiang Quanbian" |
+| **Face Reading** | Features, three courts, twelve palaces, complexion | "Mayi Shenxiang", "Lizhuang Xiangfa", "Shenxiang Quanbian" |
 | **Palmistry** | Palm lines, finger shapes, mounts, coloration, patterns | "Shenxiang Quanbian", "Shuijing Shenxiang" |
 | **Bone Reading** | Skull, body bones, nine bone structures | "Taiqing Shenjian", "Renlu Datong Fu" |
 | **Body Physiognomy** | Body type, posture, temperament, gait | "Bingjian", "Shenxiang Quanbian" |
 
-### Analysis Report Structure
+### Output Style
 
-Each analysis report includes:
-
-1. **Basic Information**: Physiognomy type, analysis date
-2. **Feature Recognition**: Key features identified from the photo
-3. **Personality Traits**: Main personality tendencies, strengths and weaknesses
-4. **Ability Tendencies**: Strengths, suitable careers
-5. **Fortune Analysis**: Time-based or dimension-based fortune analysis
-6. **Health Notes**: Health-related observations and suggestions
-7. **Development Suggestions**: Practical advice based on physiognomy analysis
+- **Reply language follows the question**: answer in Chinese when asked in Chinese, in English when asked in English; if the user explicitly requests another language, use that one. Confirmations, readings, fallback notes, and image labels all use that language. In English replies, use common English terms for body areas and palaces, with the Chinese name in parentheses when useful.
+- **Details first, overall last**: discuss specific areas and visible features first, then close with the overall impression and personality; do not lead with a verdict about the person. Image labels carry only concrete visible features; overall judgments and personality stay in the closing text.
+- **“老夫” voice**: speaks as “this old fellow”, in a warm, conversational tone, with an occasional “hmm” or “ah”.
+- **On demand**: explains the areas and questions the user asks about, without mechanically filling a fixed report template.
+- **Sources**: major observations name the reference text; only book-level attribution supported by the knowledge base is given, with no invented chapters, pages, or quotations.
+- **Annotated original**: when the current environment has an image-editing tool that can work from the user's original photo, it produces an annotated copy that preserves the person's appearance and uses callout lines to mark the analysed areas. Each label has two lines: the area name on top and a brief visible description below (e.g. “Mouth Palace / lips on the thin side”, “Forehead / fairly open and full”). Without a suitable tool, it gives a text reading and says so.
 
 ### Technical Principle
 
 ```
-Upload photo → Identify image type → Access rule base → Extract features → Comprehensive analysis → Generate report
+Check photo → Confirm type when needed → Read rules → Analyse visible features
+            → Try original-image annotation → Deliver annotated image or text reading
 ```
 
-1. **Identify image type**: Automatically determine if it's face/palm/bone/body
-2. **Access rule base**: Read corresponding physiognomy rule file (based on classic texts)
-3. **Extract features**: Use vision analysis tools to extract key features
-4. **Comprehensive analysis**: Multi-dimensional analysis combining rule knowledge
-5. **Generate report**: Output structured analysis report with disclaimer
+1. **Check photo**: if no usable photo is present, ask for one; if no reading type is stated, list the four types for the user to choose.
+2. **Confirm type**: proceed directly when the photo is clear and matches the request; ask first when the type is unclear, several parts are present, or the photo conflicts with the text.
+3. **Read rules**: after confirmation, read the matching face, palm, bone, or body rule file.
+4. **Analyse features**: discuss only clearly visible areas and separate visible features from traditional interpretations.
+5. **Deliver**: attach an annotated original when an image-editing tool is available; otherwise give a conversational text reading.
 
 ---
 
@@ -289,19 +173,18 @@ This skill's rule knowledge base is compiled from the following classic physiogn
 
 ## Project Structure
 
-Each skill directory follows the [AgentSkills](https://agentskills.io) open standard:
+The skill directory follows the [AgentSkills](https://agentskills.io) open standard:
 
 ```
-kanxiang/                         # Repository root (skill collection)
+kanxiang/                         # Human physiognomy skill repository
 ├── skills/
-│   ├── human-physiognomy/        # Human physiognomy skill (documented in this README)
-│   │   ├── SKILL.md              # Skill entry (official frontmatter)
-│   │   └── references/           # Rule knowledge base
-│   │       ├── mianxiang.md      # Face reading rules (based on "Mayi Shenxiang", etc.)
-│   │       ├── shouxiang.md      # Palmistry rules (based on "Shenxiang Quanbian", etc.)
-│   │       ├── guxiang.md        # Bone reading rules (based on "Taiqing Shenjian", etc.)
-│   │       └── tixiang.md        # Body physiognomy rules (based on "Bingjian", etc.)
-│   └── cat-physiognomy/          # Cat physiognomy skill
+│   └── tenpai-kanxiang/          # Human physiognomy skill
+│       ├── SKILL.md              # Skill entry (official frontmatter)
+│       └── references/           # Rule knowledge base
+│           ├── mianxiang.md      # Face reading rules (based on "Mayi Shenxiang", etc.)
+│           ├── shouxiang.md      # Palmistry rules (based on "Shenxiang Quanbian", etc.)
+│           ├── guxiang.md        # Bone reading rules (based on "Taiqing Shenjian", etc.)
+│           └── tixiang.md        # Body physiognomy rules (based on "Bingjian", etc.)
 ├── README.md                     # This file
 └── LICENSE
 ```
@@ -315,20 +198,20 @@ kanxiang/                         # Repository root (skill collection)
 - **This analysis is for cultural reference and entertainment only**: Physiognomy is traditional culture; modern science has not confirmed its predictive ability
 - **Please view rationally**: Life path depends primarily on personal effort and choices
 - **No absolute assertions**: All analyses are probabilistic references, not absolute destiny
-- **Health notes are for reference only**: Consult professional doctors for health issues
+- **No medical judgments**: Skin tone, palm lines, or bone features must not be used for diagnosis; consult a professional doctor for health concerns
 
 ### 📋 Usage Limitations
 
-- No prediction of specific events (e.g., "when will I get married", "when will I get rich")
+- No prediction of specific events or dates (e.g., "when will I get married", "when will I get rich")
 - No politically sensitive topics
 - No promotion of superstition
-- Each analysis report includes a disclaimer at the end
+- Outputs retain a cultural-reference note and do not present physiognomy as a scientific conclusion
 
 ### 📷 Photo Requirements
 
 - **Clarity**: Photos should be clear and visible, avoid blur or obstruction
 - **Lighting**: Avoid overly dim lighting or direct strong light
-- **Angle**: Front view is best, side view can also be analyzed
+- **Angle**: A front view is best; a side profile is only used for the contours visible from that angle
 - **Privacy**: Do not upload photos containing others' privacy
 
 ---
@@ -342,7 +225,7 @@ kanxiang/                         # Repository root (skill collection)
 **A**: Supports human body part photos, including face, palm, full body, etc. Photos should be clear and visible, avoiding blur, obstruction, overly dim lighting, etc.
 
 ### Q: How long does analysis take?
-**A**: Typically completed within a few seconds to十几 seconds.
+**A**: Typically completed within a few seconds to a few dozen seconds.
 
 ### Q: Can I upload photos for analysis multiple times?
 **A**: Yes. Each analysis is independent, and you can upload different photos for analysis multiple times.
@@ -356,6 +239,20 @@ kanxiang/                         # Repository root (skill collection)
 ---
 
 ## Version History
+
+### v1.1.2 (2026-11-05)
+- Reading order now starts with specific areas and features, then closes with overall impression and personality
+- Image annotations mark concrete features only; overall judgments stay in the closing text
+
+### v1.1.1 (2026-11-05)
+- Replies and image labels follow the language of the user's question
+- Image labels now use two lines — area name on top, brief visible description below — instead of the name alone
+
+### v1.1.0 (2026-11-05)
+- Renamed the skill to `tenpai-kanxiang`
+- Confirm the photo and reading type first; ask when no photo, an unclear type, or a photo/text mismatch
+- Conversational “老夫” delivery; annotated original when an image tool supports it, otherwise a text reading
+- Book-level source attribution only, with no invented chapters, pages, or quotations
 
 ### v1.0.0 (2026-04-19)
 - Initial release
@@ -382,7 +279,7 @@ As "Bingjian" says: "The spirit of the whole body is embodied in the two eyes; t
 
 ---
 
-MIT License © [timerzz](https://github.com/timerzz/kanxiang)
+MIT License © [timerzz](https://github.com/tenpai-ai/kanxiang)
 
-**Last Updated**: 2026-04-19
-**Skill Version**: 1.0.0
+**Last Updated**: 2026-11-05
+**Skill Version**: 1.1.2
