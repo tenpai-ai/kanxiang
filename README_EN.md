@@ -23,10 +23,10 @@ Install the human physiognomy skill with the [skills CLI](https://skills.sh) (`n
 
 ```bash
 # Install the repository skill to the current project
-npx skills add timerzz/kanxiang
+npx skills add tenpai-ai/kanxiang
 
 # Target a specific agent
-npx skills add timerzz/kanxiang --skill tenpai-kanxiang -a opencode
+npx skills add tenpai-ai/kanxiang --skill tenpai-kanxiang -a opencode
 ```
 
 Notes:
@@ -40,15 +40,6 @@ Notes:
 | Skill | Purpose | Input | Output |
 |-------|---------|-------|--------|
 | [`tenpai-kanxiang`](skills/tenpai-kanxiang/SKILL.md) | Human readings: confirm the photo and type first; face, palm, bone and body reading as requested, per classic texts such as 《麻衣神相》 and 《冰鉴》 | Face / palm / bone / full-body photos | Conversational reading in the “老夫” voice; annotated original when the image tool supports it |
-
-### Requirements
-- **Node.js 22.20+** (required by the skills CLI, [installation guide](https://nodejs.org))
-- **Claude Code** (when installing to Claude): free installation ([guide](https://docs.anthropic.com/en/docs/claude-code))
-- **Visual Analysis**: Requires a model with vision capabilities (e.g., Claude 4.6 Sonnet)
-- **API Usage**: Each analysis consumes approximately 2k-5k tokens, depending on photo complexity and analysis depth
-- **Payment Options** (choose one):
-  - Claude Pro / Max Subscription: Use within subscription quota, no additional setup needed
-  - Anthropic API Key: Pay-as-you-go, configure key in Claude Code
 
 ---
 
@@ -288,7 +279,7 @@ As "Bingjian" says: "The spirit of the whole body is embodied in the two eyes; t
 
 ---
 
-MIT License © [timerzz](https://github.com/timerzz/kanxiang)
+MIT License © [timerzz](https://github.com/tenpai-ai/kanxiang)
 
 **Last Updated**: 2026-11-05
 **Skill Version**: 1.1.2

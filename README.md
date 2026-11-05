@@ -23,10 +23,10 @@
 
 ```bash
 # 安装仓库中的 Skill 到当前项目
-npx skills add timerzz/kanxiang
+npx skills add tenpai-ai/kanxiang
 
 # 指定目标 agent 安装
-npx skills add timerzz/kanxiang --skill tenpai-kanxiang -a opencode
+npx skills add tenpai-ai/kanxiang --skill tenpai-kanxiang -a opencode
 ```
 
 说明：
@@ -40,15 +40,6 @@ npx skills add timerzz/kanxiang --skill tenpai-kanxiang -a opencode
 | 技能 | 用途 | 输入 | 输出 |
 |------|------|------|------|
 | [`tenpai-kanxiang`](skills/tenpai-kanxiang/SKILL.md) | 给人看相：先确认图片与类型；面相、手相、骨相、体相按需分析，依据《麻衣神相》《冰鉴》等经典相书 | 人脸 / 手掌 / 骨骼 / 全身照片 | 老夫口吻的文字解读；工具支持时可附原图引线标注图 |
-
-### 环境要求
-- **Node.js 22.20+**（skills CLI 运行要求，[安装指南](https://nodejs.org)）
-- **Claude Code**（安装到 Claude 时）：免费安装（[安装指南](https://docs.anthropic.com/en/docs/claude-code)）
-- **视觉分析能力**：需要使用支持视觉分析的模型（如 Claude 4.6 Sonnet）
-- **API 消耗**：每次分析大约消耗 2k-5k tokens，取决于照片复杂度和分析深度
-- **付费方式**（二选一）：
-  - Claude Pro / Max 订阅：在订阅额度内使用，无需额外配置
-  - Anthropic API Key：按量付费，需在 Claude Code 中配置 key
 
 ---
 
@@ -288,7 +279,7 @@ kanxiang/                         # 相人技能仓库
 
 ---
 
-MIT License © [timerzz](https://github.com/timerzz/kanxiang)
+MIT License © [timerzz](https://github.com/tenpai-ai/kanxiang)
 
 **最后更新**：2026-11-05
 **技能版本**：1.1.2
